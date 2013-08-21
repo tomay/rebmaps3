@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-
+gem 'pg', '0.15.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,6 +21,10 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :production do
+  gem 'rails_12factor', '0.0.2'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
