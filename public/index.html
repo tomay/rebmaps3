@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <title>REBIOMA maps</title>
+  <link rel="shortcut icon" href="http://rebioma.net/templates/rebioma.net/favicon.ico" />
+  <link type="text/css" rel="stylesheet" href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" />
+  <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/custom.css" type="text/css">
+  <style type="text/css">body,html {width:100%; height:100%; margin:0; padding:0; overflow:hidden;} #map {height:100%;}</style>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="dist/cartodb-infowindow-min.js"></script>
+  <script type="text/javascript" src="dist/cartodb-gmapsv3.js"></script>
+        
+  <!--body onload="initialize()"-->
+  <link href="css/cartodb-gmapsv3.css" rel="stylesheet" type="text/css">
+  <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />          
+  <script type="text/javascript" src="js/wax.g.min.js"></script>
+  <script type="text/javascript">
+
+  var 
+  polys = new Array(),
+  layer = null,
+  cartodb2_gmapsv3 = null,
+  era = "0",
+  r1, r2, r3, r4, r5, era_label,
+  map;
+			
+  function drawPolygon(poly) {
+    // First we erase the previous polygon
+    for (i in polys) {
+    polys[i].setMap(null);
+    }
+
+    // Construct the polygon
+    poly = new google.maps.Polygon({		    
+    paths: poly, strokeColor: '#000000', 
+    strokeOpacity: 0, strokeWeight: 2, 
+    fillColor: "#FF6600",                
+    fillOpacity: 0.9
+    });
+
+    poly.setMap(map);
+    polys.push(poly);
+  }
+
+  var renderLayer = function() {
+    var query = "SELECT * FROM {{table_name}}"; // can include: WHERE r" + era + " > 0";
+    // TO DO: Customize ramp for each era
+    var tilestyle = "#richlemur {line-color:#FFFFFF; line-width:1; line-opacity:0.4; polygon-opacity:0.7;}"
+   
+    if (era == "curr")
+      {
+      //tilestyle = tilestyle + " #grd2 [r1950<=244] {polygon-fill:#253494} #grd2 [r1950<=158] {polygon-fill:#2C7FB8} #grd2 [r1950<=125] {polygon-fill:#41B6C4} #grd2 [r1950<=103] {polygon-fill:#A1DAB4} #grd2 [r1950<=83] {polygon-fill:#FFFFCC}";
+      r1 = 3;
+      r2 = 5;
+      r3 = 8;
+      r4 = 10;
+      r5 = 13
+      era_label = "current"
+      }
+    else if (era == "a2100")
+      {
+      //tilestyle = tilestyle + " #grd2 [r2000<=415] {polygon-fill:#253494} #grd2 [r2000<=242] {polygon-fill:#2C7FB8} #grd2 [r2000<=200] {polygon-fill:#41B6C4} #grd2 [r2000<=170] {polygon-fill:#A1DAB4} #grd2 [r2000<=144] {polygon-fill:#FFFFCC}"
+      r1 = 3;
+      r2 = 5;
+      r3 = 6;
+      r4 = 8;
+      r5 = 10
+      era_label = "2100 A2a"
+      }
+    else // era == 2100b
+      {
+      //tilestyle = tilestyle + " #grd2 [r2080<=271] {polygon-fill:#253494} #grd2 [r2080<=77] {polygon-fill:#2C7FB8} #grd2 [r2080<=70] {polygon-fill:#41B6C4} #grd2 [r2080<=63] {polygon-fill:#A1DAB4} #grd2 [r2080<=57] {polygon-fill:#FFFFCC}"
+      r1 = 3;
+      r2 = 5;
+      r3 = 8;
+      r4 = 10;
+      r5 = 12
+      era_label = "2100 B2a"
+      }
+
+      tilestyle = tilestyle + " #richlemur ["+ era + "<=" + r5.toString() + "] {polygon-fill:#253494} #richlemur ["+ era + "<=" + r4.toString() + "] {polygon-fill:#2C7FB8} #richlemur ["+ era + "<=" + r3.toString() + "] {polygon-fill:#41B6C4} #richlemur ["+ era + "<=" + r2.toString() + "] {polygon-fill:#A1DAB4} #richlemur ["+ era + "<=" + r1.toString() + "] {polygon-fill:#FFFFCC}"
+    if (cartodb2_gmapsv3) {
+      cartodb2_gmapsv3.setMap(null);
+      //return;
+    }
+
+    //alert(query);
+    //alert(tilestyle);
+    cartodb2_gmapsv3 = new CartoDBLayer({
+    map: map,
+    user_name:"rebioma",
+    table_name:"richlemur",
+    query: query,
+    interactivity: "grid_code",
+    tile_style: tilestyle,
+    featureOver: function(ev, latlng, pos, data) {
+      map.setOptions({draggableCursor: 'pointer'});
+    },
+    featureOut: function() {
+      map.setOptions({draggableCursor: 'default'});
+    },
+    featureClick: function(ev, latlng, pos, data) {
+      // Set popup content
+      //alert(latlng);
+      var html = '';
+      for(var column in data) {
+        html += '<label>' + column + '</label>';
+        html += '<p>' + data[column] + '</p>';
+      }
+      //alert(data[column]);            
+      //$("div#results").html(html);
+      var 
+      sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + data[column],
+      url = "http://rebioma.cartodb.com/api/v2/sql?q=" + sql;
+ 
+      $.getJSON(url,   
+        function(response){  
+        var 
+          poly   = new Array(); 
+          coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
+          for (j in coords) {
+	    poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
+          }
+        poly.pop();
+        drawPolygon(poly);
+	//alert(latlng.Xa); UNDEFINED did .Xa change to .Za?
+	//alert(latlng.Ya); UNDEFINED as of 2/13
+	//alert(latlng.Za); UNDEFINED as of 2/13
+  //alert(latlng); // start here
+  //alert(latlng.lat); //nope
+  //alert(latlng.lng); //nope
+  //alert(latlng.hb); // no 5/13
+  //alert(latlng.ib); // no 5/13
+  //alert(latlng.kb); //ok 5/13
+  //alert(latlng.lb); //ok 5/13
+  //alert(latlng[0]);  // fails - how to just get first element of this obj?  
+  //alert(latlng[1]); // fails
+  //alert(latlng.constructor.name);
+  //for(var propt in latlng){
+  // alert(propt + ': ' + latlng[propt]);
+  // }
+        //var center = new google.maps.LatLng(latlng.Xa, latlng.Ya); //not since 10/12
+        //var center = new google.maps.LatLng(latlng.Ya, latlng.Za); 
+	      //var center = new google.maps.LatLng(latlng); //nope 10/12
+        // 2/13, none of these center options working to provide valid center
+        // var center = new google.maps.LatLng(latlng.hb, latlng.ib); // go figure 2/13
+        //var center = new google.maps.LatLng(latlng.kb, latlng.lb); // 5/13
+        var center = new google.maps.LatLng(latlng.mb, latlng.nb); // 8/13
+        map.setCenter(center);
+      })
+
+      $.ajax({
+        type: "GET",
+        dataType: 'json',
+        url: 'cells/',
+        data: {'id': data[column], 'era': era},
+        //dataType: "html",
+        success: function(response) {
+          //var result = $.parseJSON(response); not sure why this doesn't work - because json is implicit
+          $('#results').dialog("option","title","Found: " + response["size"] + " species in " + era_label);
+          $('#results').dialog("open");
+          $("div#results").html(response["list"]);
+          //alert("Success!")
+        }
+      })
+    }, // map feature click
+    auto_bound: false,
+    debug: false
+    }); // new cartodb map
+
+  $('.legend-one').html("<li><span style='background:#FFFFCC;'></span>0-" + r1 + "</li>");
+  $('.legend-two').html("<li><span style='background:#A1DAB4;'></span>" + (r1 + 1).toString() + "-" + r2.toString() + "</li>");
+  $('.legend-three').html("<li><span style='background:#41B6C4;'></span>" + (r2 + 1).toString() + "-" + r3.toString() + "</li>");
+  $('.legend-four').html("<li><span style='background:#2C7FB8;'></span>" + (r3 + 1).toString() + "-" + r4.toString() + "</li>");
+  $('.legend-five').html("<li><span style='background:#253494;'></span>" + (r4 + 1).toString() + "-" + r5.toString() + "</li>");
+  $('.legend-title').html("Number of Species in " + era_label)
+  $('.wax-legend').show();
+
+  } // renderLayer
+	
+  // Modal
+  var modal = (function(){
+    var 
+    method = {},
+    $overlay,
+    $modal,
+    $content,
+    $close;
+
+  // Center the modal in the viewport
+  method.center = function () {
+    var top, left;
+
+    top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+    left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+
+    $modal.css({
+      top:top + $(window).scrollTop(), 
+      left:left + $(window).scrollLeft()
+      });
+  };
+
+  // Open the modal
+  method.open = function (settings) {
+    $content.empty().append(settings.content);
+
+    $modal.css({
+      width: settings.width || 'auto', 
+      height: settings.height || 'auto'
+    });
+
+    method.center();
+    $(window).bind('resize.modal', method.center);
+    $modal.show();
+    $overlay.show();
+  };
+
+  // Close the modal
+  method.close = function () {
+    $modal.hide();
+    $overlay.hide();
+    $content.empty();
+    $(window).unbind('resize.modal');
+  };
+
+  // Generate the HTML and add it to the document
+  $overlay = $('<div id="overlay"></div>');
+  $modal = $('<div id="modal"></div>');
+  $content = $('<div id="content"></div>');
+  $close = $('<a id="close" href="#">close</a>');
+
+  $modal.hide();
+  $overlay.hide();
+  $modal.append($content, $close);
+
+  $(document).ready(function(){
+   $('body').append($overlay, $modal);						
+  });
+
+  $close.click(function(e){
+    e.preventDefault();
+    method.close();
+  });
+
+  return method;
+  }());
+		
+  $(document).ready(function() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: new google.maps.LatLng(-18.9,47.52),
+      zoom: 9,
+      disableDefaultUI: true, 
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL,
+	position: google.maps.ControlPosition.TOP_RIGHT
+	},                
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+    });
+
+    // hidden modal dialog
+    //$('div#about').dialog({ autoOpen: false, modal: true })
+    //$('body').append($overlay, $modal);
+
+    var $layers = $('#layers').dialog({
+      autoOpen: true,
+      title: 'Lemur species richness',
+      minWidth: 50,
+      width: 310,
+      height: 160,
+      position: [10, 5]
+    });//siblings('.ui-dialog-titlebar').remove();
+		  //$("#myDialog").dialog(dialogOpts).siblings('.ui-dialog-titlebar').remove()
+
+    var $results = $('#results').dialog({
+      autoOpen: false,
+      title: 'Species',
+      minWidth: 50,
+      height: 230,
+      width: 310,
+      overflow: 'auto',
+      position: [10, 180]
+    });
+
+    // Bind the buttons
+    $('.buttons button').click(function(){
+      $(this).focus();
+      era = $(this).val();
+
+      $(this).closest('div').find('button.selected').removeClass('selected');
+      $(this).addClass('selected');
+      //alert(era);
+      renderLayer();
+      });      
+
+    // open modal dialog
+    //$('#source').click(function(){ $('div#about').dialog('open'); });
+    $('a#source').click(function(e){
+      modal.open({content: "<p><b>About this map</b><br><p>This map shows a snapshot of biodiversity data derived from species distribution models hosted on the <a href='http://data.rebioma.net'>REBIOMA</a> data portal. This is a prototype of mapping and data interaction tools we are working to integrate on top of the data portal.</p><p>We model species distributions for three eras from public and private occurrence data uploaded by many individuals and <a href='http://www.rebioma.net/index.php?option=com_content&view=article&id=41%3Aacknowledgement-for-taxonomic-expertise&catid=23%3Aexperts&Itemid=100017&lang=en'>partner institutions</a>.</p><p>After validation and review of the occurrence data by teams of taxonomic experts, we use MaxEnt to model species distributions from the database, using forest cover and <a href='http://www.worldclim.org'>WorldClim</a> climate data for 2000, and 2100 as predictors. For 2100, we use environmental data derived from two emissions scenarios, A2a and B2a. We then apply a presence threshold to each model, and use the result to build the map of species richness and a species list for each era, shown here. Richness and species lists are calculated on a 5x5 km grid. </p><p>REBIOMA is a joint project Wildlife Conservation Society Madagascar, and the University of California Berkeley with support from the MacArthur Foundation and the JRS Biodiversity Foundation. For more information, please see the <a href='http://rebioma.net'>project page</a>, <a href='http://data.rebioma.net'>data portal</a>, and <a href='https://sites.google.com/site/rebiomahelp/'>help pages</a>."});
+      e.preventDefault();
+    });
+
+  }) // doc ready
+
+</script>
+<body>
+<div id="layers">
+  <div><b>Select an era to map:</b></div>
+  <div class="buttons">
+    <button class="selected" autofocus type="button" value="curr" class="first">Current</button>
+    <button type="button" value="a2100">2100 A2a</button>
+    <button type="button" value="b2100" class = "last">2100 B2a</button>
+    <p>Click the map to get a species list from <a href="http://data.rebioma.net" target="_blank">REBIOMA</a> models.</p>
+  </div>
+</div>
+<div id="results"></div>
+<div id="map"></div>
+
+<div class='wax-legend' style="display:none;">
+  <div class='legend-title'>Number of Species</div>
+  <div class='legend-scale'>
+    <ul class='legend-labels'>
+      <li class='legend-one'><span style='background:#F1EEF6;'></span>1-83</li>
+      <li class='legend-two'><span style='background:#BDC9E1;'></span>84-103</li>
+      <li class='legend-three'><span style='background:#74A9CF;'></span>104-125</li>
+      <li class='legend-four'><span style='background:#2B8CBE;'></span>126-158</li>
+      <li class='legend-five'><span style='background:#045A8D;'></span>159-301</li>
+    </ul>
+  </div>
+  <div class='legend-source'><a href="#" id="source">More information about this map...</a></div>
+</div>
+
+</body>
+</html>
