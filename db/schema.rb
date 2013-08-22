@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821161641) do
+ActiveRecord::Schema.define(:version => 20130822180122) do
 
   create_table "a2100s", :force => true do |t|
     t.integer "r2100a"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130821161641) do
     t.string "sciname"
     t.string "eol_url"
     t.string "wikipedia_url"
+    t.string "image_url"
   end
 
 end

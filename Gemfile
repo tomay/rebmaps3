@@ -21,7 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem 'wikipedia-client'
 group :production do
   gem 'rails_12factor', '0.0.2'
 end
