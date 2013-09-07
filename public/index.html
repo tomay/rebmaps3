@@ -125,35 +125,45 @@
         var 
           poly   = new Array(); 
           coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
+          var first_long = 0;
+          var last_long = 0;
+          var first_lat = 0;
+          var last_lat = 0;
+          var lat_ave = -17.9990; 
+          var long_ave = 47.5222;
+           //alert(lat_ave);
+            //alert(long_ave);
+          //alert(response.rows[0].geoj);
           for (j in coords) {
-	    poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
+            if (j==0){
+              first_long = coords[j][0];
+              first_lat = coords[j][1];
+            }
+            else if (j==2) {
+              last_long = coords[j][0];
+              last_lat = coords[j][1];
+            }            
+            //lat_ave = coords[j][1];
+            //long_ave = coords[j][0];
+	          poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
           }
-        poly.pop();
-        drawPolygon(poly);
-	//alert(latlng.Xa); UNDEFINED did .Xa change to .Za?
-	//alert(latlng.Ya); UNDEFINED as of 2/13
-	//alert(latlng.Za); UNDEFINED as of 2/13
-  //alert(latlng); // start here
-  //alert(latlng.lat); //nope
-  //alert(latlng.lng); //nope
-  //alert(latlng.hb); // no 5/13
-  //alert(latlng.ib); // no 5/13
-  //alert(latlng.kb); //ok 5/13
-  //alert(latlng.lb); //ok 5/13
-  //alert(latlng[0]);  // fails - how to just get first element of this obj?  
-  //alert(latlng[1]); // fails
-  //alert(latlng.constructor.name);
-  //for(var propt in latlng){
-  // alert(propt + ': ' + latlng[propt]);
-  // }
-        //var center = new google.maps.LatLng(latlng.Xa, latlng.Ya); //not since 10/12
-        //var center = new google.maps.LatLng(latlng.Ya, latlng.Za); 
-	      //var center = new google.maps.LatLng(latlng); //nope 10/12
-        // 2/13, none of these center options working to provide valid center
-        // var center = new google.maps.LatLng(latlng.hb, latlng.ib); // go figure 2/13
-        //var center = new google.maps.LatLng(latlng.kb, latlng.lb); // 5/13
-        var center = new google.maps.LatLng(latlng.mb, latlng.nb); // 8/13
-        map.setCenter(center);
+          f_long = parseFloat(first_long.toFixed(4));
+          f_lat = parseFloat(first_lat.toFixed(4));
+          l_long = parseFloat(last_long.toFixed(4));
+          l_lat = parseFloat(last_lat.toFixed(4));
+          lat_ave = ((f_lat + l_lat) / 2);
+          long_ave = ((f_long + l_long) / 2);
+          //alert((first_ave + last_ave) / 2);
+          //alert(last_long);
+          //alert(first_lat);
+          //alert(last_lat);
+          //alert(first_long);
+          //alert(lat_ave);
+          //alert(long_ave);
+          poly.pop();
+          drawPolygon(poly);
+	        var center = new google.maps.LatLng(lat_ave, long_ave); // 8/13
+          map.setCenter(center);
       })
 
       $.ajax({
