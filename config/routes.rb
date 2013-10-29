@@ -1,6 +1,7 @@
 Rebmaps3::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
+  root :to => 'welcome#index'
   match 'cells' => 'cells#search'
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

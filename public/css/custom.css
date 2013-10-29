@@ -1,11 +1,21 @@
+body,html {
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  }
+
+#map {
+  height:100%;
+}
+
 .ui-widget button { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1.2em; }
 
 .ui-dialog .ui-dialog-titlebar { padding: .1em .1em .1em .3em; position: relative;}
-.ui-dialog .ui-dialog-title { float: left; padding: .5em; margin: .1em .3em .1em; } 
+.ui-dialog .ui-dialog-title { float: left; padding: .5em; margin: .1em .3em .1em; }
 .ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-
 .ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .6em 1em 1.5em 2em; }
-
 .ui-widget { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: .8em/*{fsDefault}*/; }
 .ui-widget input, .ui-widget select, .ui-widget textarea { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1em; }
 .ui-widget-content { border: 1px solid #aaaaaa/*{borderColorContent}*/; background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_glass_75_ffffff_1x400.png)/*{bgImgUrlContent}*/ 0/*{bgContentXPos}*/ 0/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/; color: #222222/*{fcContent}*/; }
@@ -64,14 +74,14 @@ a.url { font-size: .8em; color:gray; }
   }
 
 #overlay #modal #content #close {
-  margin:0; 
+  margin:0;
   padding:0;
 }
 
 #overlay {
-  margin:0; 
+  margin:0;
   padding:0;
-  position:fixed; 
+  position:fixed;
   top:0;
   left:0;
   width:100%;

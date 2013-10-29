@@ -8,6 +8,10 @@ gem 'rails', '3.2.11'
 
 gem 'pg', '0.15.1'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

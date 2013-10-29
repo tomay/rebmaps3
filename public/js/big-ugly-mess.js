@@ -6,6 +6,7 @@ era = "0",
 r1, r2, r3, r4, r5, era_label,
 map;
 
+// Leaflet example: http://leafletjs.com/examples/quick-start.html
 function drawPolygon(poly) {
   // First we erase the previous polygon
   for (i in polys) {
@@ -24,6 +25,7 @@ function drawPolygon(poly) {
   polys.push(poly);
 }
 
+// see: http://developers.cartodb.com/tutorials/toggle_map_view.html
 var renderLayer = function() {
   var query = "SELECT * FROM {{table_name}}";
   var tilestyle = "#richlemur {line-color:#FFFFFF; line-width:1; line-opacity:0.4; polygon-opacity:0.7;}"
