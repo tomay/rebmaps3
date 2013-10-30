@@ -11,7 +11,7 @@
 
   <link rel="shortcut icon" href="http://www.rebioma.net/templates/rebioma.net/favicon.ico" />
   <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="css/custom.css" type="text/css">
+  <%= stylesheet_link_tag "custom" %>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
@@ -19,17 +19,15 @@
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
   <!-- the following two have been replaced -->
   <!-- new ones
-   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
   <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script -->
-  <script type="text/javascript" src="js/cartodb-gmapsv3.js"></script>
+  <%= javascript_include_tag "cartodb-gmapsv3-min" %>
 
-  <link href="css/cartodb-gmapsv3.css" rel="stylesheet" type="text/css">
   <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="js/wax.g.min.js"></script>
   <script type="text/javascript" src="js/big-ugly-mess.js"></script>
 </head>
 <body>
-
 
 <%= yield %>
 

@@ -230,6 +230,17 @@ $(document).ready(function() {
     mapTypeControl: false
   });
 
+//   map = new L.Map('map', {
+//     center: [-18.9,47.52],
+//     zoom: 9
+//   })
+// //https://c.tiles.mapbox.com/v3/examples.map-9ijuk24y/12/252/1798.png
+//   L.tileLayer('https://c.tiles.mapbox.com/v3/examples.map-9ijuk24y/{z}/{x}/{y}.png', {
+//     zoomControl: false
+//   }).addTo(map);
+
+//   new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
   var $layers = $('#layers').dialog({
     autoOpen: true,
     title: 'Lemur species richness',
