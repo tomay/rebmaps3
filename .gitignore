@@ -16,3 +16,4 @@
 
 # Ignore seed-data text files
 /db/seed-data/*.txt
+/db/seed-data/rebmaps3_data/*.txt

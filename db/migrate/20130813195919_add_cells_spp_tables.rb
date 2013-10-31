@@ -23,19 +23,19 @@ class AddCellsSppTables < ActiveRecord::Migration
 
     #system "rsync -ruv /home/tomay/rails/rebmaps/db/migrate/data/ /tmp"
     # one file for all species data
-    execute "COPY spps (id, sciname) FROM '#{Rails.root}/db/seed-data/spec2.txt' (FORMAT CSV)"  
+    execute "COPY spps (id, sciname) FROM '#{Rails.root}/db/seed-data/rebmaps3_data/spec2.txt' (FORMAT CSV)"  
 
     # curr cells and join data seed
-    execute "COPY currents (id, r2000)  FROM '#{Rails.root}/db/seed-data/curr_cells.txt' (FORMAT CSV)"  
-    execute "COPY currents_spps (current_id, spp_id) FROM '#{Rails.root}/db/seed-data/current_cells_specs.txt' (FORMAT CSV)"
+    execute "COPY currents (id, r2000)  FROM '#{Rails.root}/db/seed-data/rebmaps3_data/curr_cells.txt' (FORMAT CSV)"  
+    execute "COPY currents_spps (current_id, spp_id) FROM '#{Rails.root}/db/seed-data/rebmaps3_data/current_cells_specs.txt' (FORMAT CSV)"
 
     # a2a cells and join data seed
-    execute "COPY a2100s (id, r2100a)  FROM '#{Rails.root}/db/seed-data/a2a_cells.txt' (FORMAT CSV)"  
-    execute "COPY a2100s_spps (a2100_id, spp_id) FROM '#{Rails.root}/db/seed-data/a2a_cells_specs.txt' (FORMAT CSV)"
+    execute "COPY a2100s (id, r2100a)  FROM '#{Rails.root}/db/seed-data/rebmaps3_data/a2a_cells.txt' (FORMAT CSV)"  
+    execute "COPY a2100s_spps (a2100_id, spp_id) FROM '#{Rails.root}/db/seed-data/rebmaps3_data/a2a_cells_specs.txt' (FORMAT CSV)"
 
     # b2a cells and join data seed
-    execute "COPY b2100s (id, r2100b)  FROM '#{Rails.root}/db/seed-data/b2a_cells.txt' (FORMAT CSV)"  
-    execute "COPY b2100s_spps (b2100_id, spp_id) FROM '#{Rails.root}/db/seed-data/b2a_cells_specs.txt' (FORMAT CSV)"
+    execute "COPY b2100s (id, r2100b)  FROM '#{Rails.root}/db/seed-data/rebmaps3_data/b2a_cells.txt' (FORMAT CSV)"  
+    execute "COPY b2100s_spps (b2100_id, spp_id) FROM '#{Rails.root}/db/seed-data/rebmaps3_data/b2a_cells_specs.txt' (FORMAT CSV)"
 
   end
 
