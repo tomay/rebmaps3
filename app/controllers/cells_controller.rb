@@ -17,12 +17,12 @@ class CellsController < ApplicationController
     @result["size"] = @results.size.to_s
     #@result["list"] = @results.map(&:sciname).join(', ')
     final = []
-    @results.each{|a| 
+    @results.each{|a|
       string = a.sciname
-      string += (a.eol_url.nil? ? "" : "   <a class='url' href='#{a.eol_url}' target='_blank'>EOL</a>") 
+      string += (a.eol_url.nil? ? "" : "   <a class='url' href='#{a.eol_url}' target='_blank'>EOL</a>")
       string += (a.wikipedia_url.nil? ? "" : "   <a class='url' href='#{a.wikipedia_url}' target='_blank'>Wikipedia</a>")
-      string += (string[-1] == ">" ? "<img src='images/external-link.gif'>" : "")
-      final << string 
+      string += (string[-1] == ">" ? "<img src='assets/external-link.gif'>" : "")
+      final << string
     }
     #@result["list"] = @results.map(&:sciname).join('<br>')
     @result["list"] = final.join('<br>')
