@@ -40,8 +40,9 @@ cd db/seed-data
 gzip rebmaps3_data.tar.gz
 tar xvf rebmaps3_data.tar
 
-4. Migrate the database
+4. Create and then migrate the database
 ``` 
+rake db:create
 rake db:migrate
 ```
 
