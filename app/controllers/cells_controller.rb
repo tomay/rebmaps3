@@ -9,13 +9,8 @@ class CellsController < ApplicationController
     when "b2100"
       @results = Spp.includes(:b2100s).select(:sciname).where("b2100s.id = ?", params[:id])
     end
-    #render :title, :layout => false
-    #render :search, :layout => false
-
-
     @result = {}
     @result["size"] = @results.size.to_s
-    #@result["list"] = @results.map(&:sciname).join(', ')
     final = []
     @results.each{|a|
       string = a.sciname
@@ -24,11 +19,8 @@ class CellsController < ApplicationController
       string += (string[-1] == ">" ? "<img src='assets/external-link.gif'>" : "")
       final << string
     }
-    #@result["list"] = @results.map(&:sciname).join('<br>')
     @result["list"] = final.join('<br>')
     render json: @result
   end
-
-
 
 end
