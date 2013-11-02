@@ -9,7 +9,6 @@ class CellsController < ApplicationController
     when "b2100"
       @results = Spp.includes(:b2100s).select(:sciname).where("b2100s.id = ?", params[:id])
     end
-
     @result = {}
     @result["size"] = @results.size.to_s
     final = []
