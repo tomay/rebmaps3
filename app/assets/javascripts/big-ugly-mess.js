@@ -61,7 +61,7 @@ var createMapKey = function(era) {
   $('#legend-three-range').text(rangeCreator(labels.r3,labels.r2));
   $('#legend-four-range').text(rangeCreator(labels.r4,labels.r3));
   $('#legend-five-range').text(rangeCreator(labels.r5,labels.r4));
-  $('#legend-title').text("Number of Species in " + labels.era_label)
+  $('#legend-title').text("Number of Species in " + eraName(era))
   $('.wax-legend').show();
 }
 
@@ -149,7 +149,7 @@ var renderMap = function(era) {
         url: 'cells/',
         data: {'id': data[column], 'era': era},
         success: function(response) {
-          $('#results').dialog("option","title","Found: " + response["size"] + " species in " + labels.era_label);
+          $('#results').dialog("option","title","Found: " + response["size"] + " species in " + eraName(era));
           $('#results').dialog("open");
           $("div#results").html(response["list"]);
         }
