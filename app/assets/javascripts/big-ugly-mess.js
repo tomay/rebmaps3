@@ -80,7 +80,6 @@ var renderMap = function(era) {
     map: map,
     user_name:"rebioma",
     table_name:"richlemur",
-    query: "SELECT * FROM {{table_name}}",
     interactivity: "grid_code",
     tile_style: tilestyler(era),
     auto_bound: false,
