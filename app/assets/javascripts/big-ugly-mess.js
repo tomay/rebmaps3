@@ -1,10 +1,14 @@
 var
-polys = new Array(),
 map;
 
 // Leaflet example: http://leafletjs.com/examples/quick-start.html
 function drawPolygon(poly) {
   // First we erase the previous polygon
+
+  if (typeof polys === 'undefined') {
+    polys = new Array()
+  }
+
   for (i in polys) {
   polys[i].setMap(null);
   }
