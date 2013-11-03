@@ -73,6 +73,26 @@ a.url { font-size: .8em; color:gray; }
   color: #777;
   }
 
+.wax-legend #legend-one-box {
+  background:#FFFFCC;
+}
+
+.wax-legend #legend-two-box {
+  background:#A1DAB4;
+}
+
+.wax-legend #legend-three-box {
+  background:#41B6C4;
+}
+
+.wax-legend #legend-four-box {
+  background:#2C7FB8;
+}
+
+.wax-legend #legend-five-box {
+  background:#253494;
+}
+
 #overlay #modal #content #close {
   margin:0;
   padding:0;
@@ -120,23 +140,5 @@ a.url { font-size: .8em; color:gray; }
   right:-7px;
 }
 
-#legend-one-box {
-  background:#FFFFCC;
-}
 
-#legend-two-box {
-  background:#A1DAB4;
-}
-
-#legend-three-box {
-  background:#41B6C4;
-}
-
-#legend-four-box {
-  background:#2C7FB8;
-}
-
-#legend-five-box {
-  background:#253494;
-}
 
