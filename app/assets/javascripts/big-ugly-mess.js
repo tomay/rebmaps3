@@ -71,7 +71,7 @@ var switchLayers = function(era) {
 
 var renderMap = function(era) {
 
-  if (typeOf mapLayer != 'undefined') {
+  if (typeof mapLayer != 'undefined') {
     mapLayer.setMap(null);
   }
 
