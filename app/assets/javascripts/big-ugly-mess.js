@@ -46,15 +46,8 @@ var tilestyler = function(era) {
 }
 
 var rangeCreator = function(high,low) {
-  
-  if (!low) {
-    return 0 + '-' + high
-  }
-
-  if (low === high) {
-    return low.toString()
-  };
-  
+  if (!low) { return 0 + '-' + high };
+  if (low === high) { return low.toString()};
   return (low + 1) + '-' + high
 }
 
