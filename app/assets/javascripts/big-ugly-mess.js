@@ -77,7 +77,11 @@ var renderLayer = function() {
     featureOut: function() {
       map.setOptions({draggableCursor: 'default'});
     },
-    featureClick: function(ev, latlng, pos, data) {
+    auto_bound: false,
+    debug: false
+  }); // new cartodb map
+
+  cartodb2_gmapsv3.options.featureClick = function(ev, latlng, pos, data) {
       // Set popup content
       var labels = labeler(era);
 
@@ -136,10 +140,7 @@ var renderLayer = function() {
           $("div#results").html(response["list"]);
         }
       })
-    }, // map feature click
-    auto_bound: false,
-    debug: false
-  }); // new cartodb map
+    } // map feature click
 
   createMapKey(era)
 
