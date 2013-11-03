@@ -81,9 +81,7 @@ var renderMap = function(era) {
     user_name:"rebioma",
     table_name:"richlemur",
     interactivity: "grid_code",
-    tile_style: tilestyler(era),
-    auto_bound: false,
-    debug: false
+    tile_style: tilestyler(era)
   }); // new cartodb map
 
   mapLayer.options.featureOut = function() {
