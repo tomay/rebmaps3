@@ -47,12 +47,12 @@ var tilestyler = function(era) {
 
 var createMapKey = function(era) {
   var labels = labeler(era)
-  $('.legend-one').html("<li><span style='background:#FFFFCC;'></span>0-" + labels.r1 + "</li>");
-  $('.legend-two').html("<li><span style='background:#A1DAB4;'></span>" + (parseInt(labels.r1) + 1).toString() + "-" + labels.r2 + "</li>");
-  $('.legend-three').html("<li><span style='background:#41B6C4;'></span>" + (parseInt(labels.r2) + 1).toString() + "-" + labels.r3 + "</li>");
-  $('.legend-four').html("<li><span style='background:#2C7FB8;'></span>" + (parseInt(labels.r3) + 1).toString() + "-" + labels.r4 + "</li>");
-  $('.legend-five').html("<li><span style='background:#253494;'></span>" + (parseInt(labels.r4) + 1).toString() + "-" + labels.r5 + "</li>");
-  $('.legend-title').html("Number of Species in " + labels.era_label)
+  $('#legend-one-range').text("0-" + labels.r1);
+  $('#legend-two-range').text((parseInt(labels.r1) + 1).toString() + "-" + labels.r2);
+  $('#legend-three-range').text((parseInt(labels.r2) + 1).toString() + "-" + labels.r3);
+  $('#legend-four-range').text((parseInt(labels.r3) + 1).toString() + "-" + labels.r4);
+  $('#legend-five-range').text((parseInt(labels.r4) + 1).toString() + "-" + labels.r5);
+  $('#legend-title').html("Number of Species in " + labels.era_label)
   $('.wax-legend').show();
 }
 
