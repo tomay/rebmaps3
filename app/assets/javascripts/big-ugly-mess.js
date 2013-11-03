@@ -62,10 +62,7 @@ var createMapKey = function(era) {
   $('.wax-legend').show();
 }
 
-var switchLayers = function(era) {
-  renderMap(era);
-  createMapKey(era);
-};
+
 
 var renderMap = function(era) {
 
@@ -184,17 +181,22 @@ $(document).ready(function() {
     position: [10, 180]
   });
 
-  // Bind the buttons
-  $('.buttons button').click(function(){
-    $(this).focus();
-    era = $(this).val();
-
-    $(this).closest('div').find('button.selected').removeClass('selected');
-    $(this).addClass('selected');
-
-    switchLayers(era);
-    });
+  $('.buttons button').click(switchEras)
 
 
 }) // doc ready
+
+var switchEras = function() {
+  var era = this.value
+  focusButton( this );
+  renderMap(era);
+  createMapKey(era);
+}
+
+var focusButton = function(button) {
+  $button = $( button )
+  $button.focus();
+  $button.closest('div').find('button.selected').removeClass('selected');
+  $button.addClass('selected');
+}
 
