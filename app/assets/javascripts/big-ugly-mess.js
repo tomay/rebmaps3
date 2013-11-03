@@ -45,6 +45,19 @@ var tilestyler = function(era) {
   return tilestyle
 }
 
+var rangeCreator = function(high,low) {
+  
+  if (!low) {
+    return 0 + '-' + high
+  }
+
+  if (low === high) {
+    return low.toString()
+  };
+  
+  return (low + 1) + '-' + high
+}
+
 var createMapKey = function(era) {
   var labels = labeler(era)
   $('#legend-one-range').text("0-" + labels.r1);
