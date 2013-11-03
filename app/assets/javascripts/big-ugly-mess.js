@@ -1,7 +1,7 @@
 var
 polys = new Array(),
 layer = null,
-cartodb2_gmapsv3 = null,
+mapLayer = null,
 era = "0",
 map;
 
@@ -59,11 +59,11 @@ var createMapKey = function(era) {
 
 var renderLayer = function() {
 
-  if (cartodb2_gmapsv3) {
-    cartodb2_gmapsv3.setMap(null);
+  if (mapLayer) {
+    mapLayer.setMap(null);
   }
 
-  cartodb2_gmapsv3 = new CartoDBLayer({
+  mapLayer = new CartoDBLayer({
     map: map,
     user_name:"rebioma",
     table_name:"richlemur",
@@ -74,15 +74,15 @@ var renderLayer = function() {
     debug: false
   }); // new cartodb map
 
-  cartodb2_gmapsv3.options.featureOut = function() {
+  mapLayer.options.featureOut = function() {
       map.setOptions({draggableCursor: 'default'});
   };
 
-  cartodb2_gmapsv3.options.featureOver = function(ev, latlng, pos, data) {
+  mapLayer.options.featureOver = function(ev, latlng, pos, data) {
     map.setOptions({draggableCursor: 'pointer'});
   };
 
-  cartodb2_gmapsv3.options.featureClick = function(ev, latlng, pos, data) {
+  mapLayer.options.featureClick = function(ev, latlng, pos, data) {
       // Set popup content
       var labels = labeler(era);
 
