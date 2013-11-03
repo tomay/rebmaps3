@@ -71,15 +71,17 @@ var renderLayer = function() {
     query: query,
     interactivity: "grid_code",
     tile_style: tilestyler(era),
-    featureOver: function(ev, latlng, pos, data) {
-      map.setOptions({draggableCursor: 'pointer'});
-    },
-    featureOut: function() {
-      map.setOptions({draggableCursor: 'default'});
-    },
     auto_bound: false,
     debug: false
   }); // new cartodb map
+
+  cartodb2_gmapsv3.options.featureOut = function() {
+      map.setOptions({draggableCursor: 'default'});
+  };
+
+  cartodb2_gmapsv3.options.featureOver = function(ev, latlng, pos, data) {
+    map.setOptions({draggableCursor: 'pointer'});
+  };
 
   cartodb2_gmapsv3.options.featureClick = function(ev, latlng, pos, data) {
       // Set popup content
@@ -140,7 +142,7 @@ var renderLayer = function() {
           $("div#results").html(response["list"]);
         }
       })
-    } // map feature click
+    }; // map feature click
 
   createMapKey(era)
 
