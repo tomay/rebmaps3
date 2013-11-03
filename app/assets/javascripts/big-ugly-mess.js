@@ -58,9 +58,8 @@ var createMapKey = function(era) {
 
 
 var renderLayer = function() {
-  var query = "SELECT * FROM {{table_name}}";
 
-   if (cartodb2_gmapsv3) {
+  if (cartodb2_gmapsv3) {
     cartodb2_gmapsv3.setMap(null);
   }
 
@@ -68,7 +67,7 @@ var renderLayer = function() {
     map: map,
     user_name:"rebioma",
     table_name:"richlemur",
-    query: query,
+    query: "SELECT * FROM {{table_name}}",
     interactivity: "grid_code",
     tile_style: tilestyler(era),
     auto_bound: false,
