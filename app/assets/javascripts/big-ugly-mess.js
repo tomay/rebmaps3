@@ -149,37 +149,10 @@ var renderMap = function(era) {
 } // renderLayer
 
 $(document).ready(function() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(-18.9,47.52),
-    zoom: 9,
-    disableDefaultUI: true,
-    zoomControl: true,
-    zoomControlOptions: {
-      style: google.maps.ZoomControlStyle.SMALL,
-      position: google.maps.ControlPosition.TOP_RIGHT
-    },
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    mapTypeControl: false
-  });
 
-  var $layers = $('#layers').dialog({
-    autoOpen: true,
-    title: 'Lemur species richness',
-    minWidth: 50,
-    width: 320,
-    height: 160,
-    position: [10, 5]
-  });
-
-  var $results = $('#results').dialog({
-    autoOpen: false,
-    title: 'Species',
-    minWidth: 50,
-    height: 230,
-    width: 320,
-    overflow: 'auto',
-    position: [10, 180]
-  });
+  map = createNewMap()
+  createSelectorPane()
+  createResultsPane()
 
   $('.buttons button').click(switchEras)
 
@@ -199,4 +172,49 @@ var focusButton = function(button) {
   $button.closest('div').find('button.selected').removeClass('selected');
   $button.addClass('selected');
 }
+
+var createNewMap = function() {
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(-18.9,47.52),
+    zoom: 9,
+    disableDefaultUI: true,
+    zoomControl: true,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.SMALL,
+      position: google.maps.ControlPosition.TOP_RIGHT
+    },
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false
+  });
+
+  return map 
+}
+
+var createSelectorPane = function() {
+  $('#selector-pane').dialog({
+    autoOpen: true,
+    title: 'Lemur species richness',
+    minWidth: 50,
+    width: 320,
+    height: 160,
+    position: [10, 5]
+  });
+}
+
+var createResultsPane = function() {
+  $('#results-pane').dialog({
+    autoOpen: false,
+    title: 'Species',
+    minWidth: 50,
+    height: 230,
+    width: 320,
+    overflow: 'auto',
+    position: [10, 180]
+  });
+}
+
+
+
+
 
