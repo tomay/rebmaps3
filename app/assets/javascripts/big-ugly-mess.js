@@ -47,17 +47,17 @@ var tilestyler = function(era) {
 
 var rangeCreator = function(high,low) {
   if (!low) { return 0 + '-' + high };
-  if (low === high) { return low.toString()};
+  if ((low + 1) === high) { return high.toString() };
   return (low + 1) + '-' + high
 }
 
 var createMapKey = function(era) {
   var labels = labeler(era)
-  $('#legend-one-range').text("0-" + labels.r1);
-  $('#legend-two-range').text((parseInt(labels.r1) + 1).toString() + "-" + labels.r2);
-  $('#legend-three-range').text((parseInt(labels.r2) + 1).toString() + "-" + labels.r3);
-  $('#legend-four-range').text((parseInt(labels.r3) + 1).toString() + "-" + labels.r4);
-  $('#legend-five-range').text((parseInt(labels.r4) + 1).toString() + "-" + labels.r5);
+  $('#legend-one-range').text(rangeCreator(labels.r1));
+  $('#legend-two-range').text(rangeCreator(labels.r2,labels.r1));
+  $('#legend-three-range').text(rangeCreator(labels.r3,labels.r2));
+  $('#legend-four-range').text(rangeCreator(labels.r4,labels.r3));
+  $('#legend-five-range').text(rangeCreator(labels.r5,labels.r4));
   $('#legend-title').text("Number of Species in " + labels.era_label)
   $('.wax-legend').show();
 }
