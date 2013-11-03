@@ -1,6 +1,5 @@
 var
 polys = new Array(),
-era = "0",
 map;
 
 // Leaflet example: http://leafletjs.com/examples/quick-start.html
