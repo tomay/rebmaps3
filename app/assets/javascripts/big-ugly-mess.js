@@ -1,7 +1,6 @@
 var
 polys = new Array(),
 layer = null,
-mapLayer = null,
 era = "0",
 map;
 
@@ -72,7 +71,7 @@ var switchLayers = function(era) {
 
 var renderMap = function(era) {
 
-  if (mapLayer) {
+  if (typeOf mapLayer != 'undefined') {
     mapLayer.setMap(null);
   }
 
