@@ -1,6 +1,5 @@
 var
 polys = new Array(),
-layer = null,
 era = "0",
 map;
 
