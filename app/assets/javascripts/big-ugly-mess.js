@@ -52,7 +52,7 @@ var createMapKey = function(era) {
   $('#legend-three-range').text((parseInt(labels.r2) + 1).toString() + "-" + labels.r3);
   $('#legend-four-range').text((parseInt(labels.r3) + 1).toString() + "-" + labels.r4);
   $('#legend-five-range').text((parseInt(labels.r4) + 1).toString() + "-" + labels.r5);
-  $('#legend-title').html("Number of Species in " + labels.era_label)
+  $('#legend-title').text("Number of Species in " + labels.era_label)
   $('.wax-legend').show();
 }
 
