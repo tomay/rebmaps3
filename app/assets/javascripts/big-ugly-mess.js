@@ -1,28 +1,24 @@
-var
-map;
+var map;
 
 // Leaflet example: http://leafletjs.com/examples/quick-start.html
 function drawPolygon(poly) {
-  // First we erase the previous polygon
 
-  if (typeof polys === 'undefined') {
-    polys = new Array()
-  }
+  if (typeof polys === 'undefined') { polys = new Array() }
 
-  for (i in polys) {
-  polys[i].setMap(null);
-  }
+  for (i in polys) { polys[i].setMap(null); }
 
-  // Construct the polygon
-  poly = new google.maps.Polygon({
+  poly = constructPolygon(poly)
+  poly.setMap(map);
+  polys.push(poly);
+}
+
+var constructPolygon = function(poly) {
+  return new google.maps.Polygon({
   paths: poly, strokeColor: '#000000',
   strokeOpacity: 0, strokeWeight: 2,
   fillColor: "#FF6600",
   fillOpacity: 0.9
   });
-
-  poly.setMap(map);
-  polys.push(poly);
 }
 
 // see: http://developers.cartodb.com/tutorials/toggle_map_view.html
