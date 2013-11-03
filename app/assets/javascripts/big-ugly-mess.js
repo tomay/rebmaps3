@@ -29,9 +29,9 @@ function drawPolygon(poly) {
 var labeler = function(era) {
 
   labels = {}
-  labels["curr"] = {"r1": "3","r2": "5","r3": "8","r4": "10","r5": "13", "era_label": "current"}
-  labels["a2100"] = {"r1": "3","r2": "5","r3": "6","r4": "8","r5": "10", "era_label": "2100 A2a"}
-  labels["b2100"] = {"r1": "3","r2": "5","r3": "8","r4": "10","r5": "12", "era_label": "2100 B2a"}
+  labels["curr"] = {"r1": 3,"r2": 5,"r3": 8,"r4": 10,"r5": 13, "era_label": "current"}
+  labels["a2100"] = {"r1": 3,"r2": 5,"r3": 6,"r4": 8,"r5": 10, "era_label": "2100 A2a"}
+  labels["b2100"] = {"r1": 3,"r2": 5,"r3": 8,"r4": 10,"r5": 12, "era_label": "2100 B2a"}
 
   return labels[era]
 
