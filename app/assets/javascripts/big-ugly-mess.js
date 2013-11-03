@@ -56,8 +56,12 @@ var createMapKey = function(era) {
   $('.wax-legend').show();
 }
 
+var switchLayers = function(era) {
+  renderMap(era);
+  createMapKey(era);
+};
 
-var renderLayer = function() {
+var renderMap = function(era) {
 
   if (mapLayer) {
     mapLayer.setMap(null);
@@ -142,9 +146,6 @@ var renderLayer = function() {
         }
       })
     }; // map feature click
-
-  createMapKey(era)
-
 } // renderLayer
 
 $(document).ready(function() {
@@ -187,8 +188,8 @@ $(document).ready(function() {
 
     $(this).closest('div').find('button.selected').removeClass('selected');
     $(this).addClass('selected');
-    //alert(era);
-    renderLayer();
+
+    switchLayers(era);
     });
 
 
