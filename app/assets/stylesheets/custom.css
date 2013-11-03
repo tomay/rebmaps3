@@ -37,7 +37,7 @@ a.url { font-size: .8em; color:gray; }
   background: #ffffff;
 }
 
-.wax-legend .legend-title {
+.wax-legend #legend-title {
   text-align: left;
   margin-bottom: 8px;
   font-weight: bold;
