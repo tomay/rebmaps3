@@ -161,28 +161,7 @@ var createNewMap = function() {
   return map 
 }
 
-var createSelectorPane = function() {
-  $('#selector-pane').dialog({
-    autoOpen: true,
-    title: 'Lemur species richness',
-    minWidth: 50,
-    width: 320,
-    height: 160,
-    position: [10, 5]
-  });
-}
 
-var createResultsPane = function() {
-  $('#results-pane').dialog({
-    autoOpen: false,
-    title: 'Species',
-    minWidth: 50,
-    height: 230,
-    width: 320,
-    overflow: 'auto',
-    position: [10, 180]
-  });
-}
 
 
 
