@@ -15,8 +15,8 @@ $(document).ready(function() {
 var switchEras = function() {
   var era = this.value
   focusButton( this );
-  renderMap(era);
-  createMapKey(era);
+  createMapLayer(era, map);
+  View.createMapKey(era);
 }
 
 var focusButton = function(button) {
