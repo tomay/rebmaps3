@@ -21,4 +21,4 @@
 
 # Ignore database.yml
 # master already checked-in with no pw
-config/database.yml
+/config/database.yml

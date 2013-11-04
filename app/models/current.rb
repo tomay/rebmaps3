@@ -1,3 +1,4 @@
 class Current < ActiveRecord::Base
-  has_and_belongs_to_many :spps
+  has_many :currents_spps
+  has_many :spps, through: :currents_spps
 end

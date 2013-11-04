@@ -9,6 +9,18 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+## used in spec/controllers/cells_controller_spec.rb
+module JSON
+  def self.is_json?(foo)
+    begin
+      return false unless foo.is_a?(String)
+      JSON.parse(foo).all?
+    rescue JSON::ParserError
+      false
+    end
+  end
+end
+
 module Rebmaps3
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

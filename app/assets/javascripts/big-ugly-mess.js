@@ -9,7 +9,6 @@ $(document).ready(function() {
 
   $('.buttons button').click(switchEras)
 
-
 }) // doc ready
 
 var switchEras = function() {
