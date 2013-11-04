@@ -140,9 +140,9 @@ var renderMap = function(era) {
         url: 'cells/',
         data: {'id': data[column], 'era': era},
         success: function(response) {
-          $('#results').dialog("option","title","Found: " + response["size"] + " species in " + eraName(era));
-          $('#results').dialog("open");
-          $("div#results").html(response["list"]);
+          $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + eraName(era));
+          $('#results-pane').dialog("open");
+          $("div#results-pane").html(response["list"]);
         }
       })
     }; // map feature click
