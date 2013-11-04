@@ -85,15 +85,14 @@ var recenter = function(response){
     }
     poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
   }
-  f_long = parseFloat(first_long.toFixed(4));
-  f_lat = parseFloat(first_lat.toFixed(4));
-  l_long = parseFloat(last_long.toFixed(4));
-  l_lat = parseFloat(last_lat.toFixed(4));
-  lat_ave = ((f_lat + l_lat) / 2);
-  long_ave = ((f_long + l_long) / 2);
+
   poly.pop();
   drawPolygon(poly);
-  var center = new google.maps.LatLng(lat_ave, long_ave); // 8/13
+
+  var lat_ave = ((parseFloat(first_lat.toFixed(4)) + parseFloat(last_lat.toFixed(4))) / 2);
+  var long_ave = ((parseFloat(first_long.toFixed(4)) + parseFloat(last_long.toFixed(4))) / 2);
+  var center = new google.maps.LatLng(lat_ave, long_ave)
+
   map.setCenter(center);
 }
 
