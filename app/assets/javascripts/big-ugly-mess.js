@@ -1,111 +1,11 @@
 // Leaflet example: http://leafletjs.com/examples/quick-start.html
 // see: http://developers.cartodb.com/tutorials/toggle_map_view.html
 
-var tilestyler = function(era) {
-  var tilestyle = "#richlemur {line-color:#FFFFFF; line-width:1; line-opacity:0.4; polygon-opacity:0.7;}"
-  var labels = labeler(era)
-
-  tilestyle = tilestyle + " #richlemur ["+ era + "<=" + labels.r5 + "] {polygon-fill:#253494} #richlemur ["+ era + "<=" + labels.r4 + "] {polygon-fill:#2C7FB8} #richlemur ["+ era + "<=" + labels.r3 + "] {polygon-fill:#41B6C4} #richlemur ["+ era + "<=" + labels.r2 + "] {polygon-fill:#A1DAB4} #richlemur ["+ era + "<=" + labels.r1 + "] {polygon-fill:#FFFFCC}"
-  return tilestyle
-}
-
-var featureOut = function() {
-  map.setOptions({draggableCursor: 'default'});
-}
-
-var featureOver = function() {
-  map.setOptions({draggableCursor: 'pointer'});
-}
-
-var renderMap = function(era) {
-
-  if (typeof mapLayer != 'undefined') { mapLayer.setMap(null); }
-
-  mapLayer = new CartoDBLayer({
-    map: map,
-    user_name:"rebioma",
-    table_name:"richlemur",
-    interactivity: "grid_code"
-  }); // new cartodb map
-
-  mapLayer.options.tile_style = tilestyler(era)
-  mapLayer.options.featureOut = featureOut()
-  mapLayer.options.featureOver = featureOver()
-
-
-  mapLayer.options.featureClick = function(ev, latlng, pos, data) {
-    var grid = data["grid_code"]
-
-    getCartoDBData(grid);
-    makeAjaxCall(grid, era)
-  };
-} // renderLayer
-
-var makeAjaxCall = function(grid, era) {
-  var era = era
-  $.ajax({
-      type: "GET",
-      dataType: 'json',
-      url: 'cells/',
-      data: {'id': grid, 'era': era},
-      success: updateResults
-    })
-}
-
-var updateResults = function(response) {
-  $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + eraName(response["era"]));
-  $('#results-pane').dialog("open");
-  $("div#results-pane").html(response["list"]);
-}
-
-
-var getCartoDBData = function(grid) {
-  var
-  sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + grid,
-  url = "http://rebioma.cartodb.com/api/v2/sql?q=" + sql;
-
-  $.getJSON(url,recenter)
-}
-
-var recenter = function(response){
-
-  var
-  poly   = new Array();
-  coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
-  var first_long, last_long, first_lat, last_lat
-
-  for (j in coords) {
-    if (j==0){
-      first_long = coords[j][0];
-      first_lat = coords[j][1];
-    }
-    else if (j==2) {
-      last_long = coords[j][0];
-      last_lat = coords[j][1];
-    }
-    poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
-  }
-
-  poly.pop();
-  drawPolygon(poly);
-
-  var lat_ave = ((parseFloat(first_lat.toFixed(4)) + parseFloat(last_lat.toFixed(4))) / 2);
-  var long_ave = ((parseFloat(first_long.toFixed(4)) + parseFloat(last_long.toFixed(4))) / 2);
-  var center = new google.maps.LatLng(lat_ave, long_ave)
-
-  map.setCenter(center);
-}
-
-
-
-
-
-
 $(document).ready(function() {
 
-  map = createNewMap()
-  createSelectorPane()
-  createResultsPane()
+  var map = createNewMap()
+  View.createSelectorPane()
+  View.createResultsPane()
 
   $('.buttons button').click(switchEras)
 
