@@ -31,29 +31,19 @@ var renderMap = function(era) {
     map: map,
     user_name:"rebioma",
     table_name:"richlemur",
-    interactivity: "grid_code",
-    tile_style: tilestyler(era)
+    interactivity: "grid_code"
   }); // new cartodb map
 
-  mapLayer.options.featureOut = function() {
-      map.setOptions({draggableCursor: 'default'});
-  };
+  mapLayer.options.tile_style = tilestyler(era)
+  mapLayer.options.featureOut = featureOut()
+  mapLayer.options.featureOver = featureOver()
 
-  mapLayer.options.featureOver = function() {
-    map.setOptions({draggableCursor: 'pointer'});
-  };
 
   mapLayer.options.featureClick = function(ev, latlng, pos, data) {
-      // Set popup content
-      var labels = labeler(era);
+      
 
-      var html = '';
-      for(var column in data) {
-        html += '<label>' + column + '</label>';
-        html += '<p>' + data[column] + '</p>';
-      }
       var
-      sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + data[column],
+      sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + data["grid_code"],
       url = "http://rebioma.cartodb.com/api/v2/sql?q=" + sql;
 
       $.getJSON(url,
@@ -95,7 +85,7 @@ var renderMap = function(era) {
         type: "GET",
         dataType: 'json',
         url: 'cells/',
-        data: {'id': data[column], 'era': era},
+        data: {'id': data["grid_code"], 'era': era},
         success: function(response) {
           $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + eraName(era));
           $('#results-pane').dialog("open");
