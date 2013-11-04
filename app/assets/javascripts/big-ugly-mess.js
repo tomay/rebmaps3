@@ -15,6 +15,13 @@ var tilestyler = function(era) {
   return tilestyle
 }
 
+var featureOut = function() {
+  map.setOptions({draggableCursor: 'default'});
+}
+
+var featureOver = function() {
+  map.setOptions({draggableCursor: 'pointer'});
+}
 
 var renderMap = function(era) {
 
