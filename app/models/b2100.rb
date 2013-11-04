@@ -1,3 +1,4 @@
 class B2100 < ActiveRecord::Base
-  has_and_belongs_to_many :spps
+  has_many :b2100s_spps
+  has_many :spps, through: :b2100s_spps
 end
