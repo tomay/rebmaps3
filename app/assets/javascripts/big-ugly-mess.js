@@ -40,60 +40,77 @@ var renderMap = function(era) {
 
 
   mapLayer.options.featureClick = function(ev, latlng, pos, data) {
-      
+    var grid = data["grid_code"]
 
-      var
-      sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + data["grid_code"],
-      url = "http://rebioma.cartodb.com/api/v2/sql?q=" + sql;
-
-      $.getJSON(url,
-        function(response){
-        var
-          poly   = new Array();
-          coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
-          var first_long = 0;
-          var last_long = 0;
-          var first_lat = 0;
-          var last_lat = 0;
-          var lat_ave = -17.9990;
-          var long_ave = 47.5222;
-
-          for (j in coords) {
-            if (j==0){
-              first_long = coords[j][0];
-              first_lat = coords[j][1];
-            }
-            else if (j==2) {
-              last_long = coords[j][0];
-              last_lat = coords[j][1];
-            }
-            poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
-          }
-          f_long = parseFloat(first_long.toFixed(4));
-          f_lat = parseFloat(first_lat.toFixed(4));
-          l_long = parseFloat(last_long.toFixed(4));
-          l_lat = parseFloat(last_lat.toFixed(4));
-          lat_ave = ((f_lat + l_lat) / 2);
-          long_ave = ((f_long + l_long) / 2);
-          poly.pop();
-          drawPolygon(poly);
-          var center = new google.maps.LatLng(lat_ave, long_ave); // 8/13
-          map.setCenter(center);
-      })
-
-      $.ajax({
-        type: "GET",
-        dataType: 'json',
-        url: 'cells/',
-        data: {'id': data["grid_code"], 'era': era},
-        success: function(response) {
-          $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + eraName(era));
-          $('#results-pane').dialog("open");
-          $("div#results-pane").html(response["list"]);
-        }
-      })
-    }; // map feature click
+    getCartoDBData(grid);
+    makeAjaxCall(grid, era)
+  };
 } // renderLayer
+
+var makeAjaxCall = function(grid, era) {
+  var era = era
+  $.ajax({
+      type: "GET",
+      dataType: 'json',
+      url: 'cells/',
+      data: {'id': grid, 'era': era},
+      success: updateResults
+    })
+}
+
+var updateResults = function(response) {
+  $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + eraName(response["era"]));
+  $('#results-pane').dialog("open");
+  $("div#results-pane").html(response["list"]);
+}
+
+
+var getCartoDBData = function(grid) {
+  var
+  sql = "SELECT ST_AsGeoJSON(the_geom) as geoj FROM richlemur WHERE grid_code = " + grid,
+  url = "http://rebioma.cartodb.com/api/v2/sql?q=" + sql;
+
+  $.getJSON(url,recenter)
+}
+
+var recenter = function(response){
+  var
+  poly   = new Array();
+  coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
+  var first_long = 0;
+  var last_long = 0;
+  var first_lat = 0;
+  var last_lat = 0;
+  var lat_ave = -17.9990;
+  var long_ave = 47.5222;
+
+  for (j in coords) {
+    if (j==0){
+      first_long = coords[j][0];
+      first_lat = coords[j][1];
+    }
+    else if (j==2) {
+      last_long = coords[j][0];
+      last_lat = coords[j][1];
+    }
+    poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
+  }
+  f_long = parseFloat(first_long.toFixed(4));
+  f_lat = parseFloat(first_lat.toFixed(4));
+  l_long = parseFloat(last_long.toFixed(4));
+  l_lat = parseFloat(last_lat.toFixed(4));
+  lat_ave = ((f_lat + l_lat) / 2);
+  long_ave = ((f_long + l_long) / 2);
+  poly.pop();
+  drawPolygon(poly);
+  var center = new google.maps.LatLng(lat_ave, long_ave); // 8/13
+  map.setCenter(center);
+}
+
+
+
+
+
 
 $(document).ready(function() {
 
