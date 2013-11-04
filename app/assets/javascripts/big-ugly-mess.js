@@ -68,15 +68,11 @@ var getCartoDBData = function(grid) {
 }
 
 var recenter = function(response){
+
   var
   poly   = new Array();
   coords = JSON.parse(response.rows[0].geoj).coordinates[0][0];
-  var first_long = 0;
-  var last_long = 0;
-  var first_lat = 0;
-  var last_lat = 0;
-  var lat_ave = -17.9990;
-  var long_ave = 47.5222;
+  var first_long, last_long, first_lat, last_lat
 
   for (j in coords) {
     if (j==0){
