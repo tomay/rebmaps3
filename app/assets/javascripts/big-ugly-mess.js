@@ -18,9 +18,7 @@ var tilestyler = function(era) {
 
 var renderMap = function(era) {
 
-  if (typeof mapLayer != 'undefined') {
-    mapLayer.setMap(null);
-  }
+  if (typeof mapLayer != 'undefined') { mapLayer.setMap(null); }
 
   mapLayer = new CartoDBLayer({
     map: map,
@@ -34,7 +32,7 @@ var renderMap = function(era) {
       map.setOptions({draggableCursor: 'default'});
   };
 
-  mapLayer.options.featureOver = function(ev, latlng, pos, data) {
+  mapLayer.options.featureOver = function() {
     map.setOptions({draggableCursor: 'pointer'});
   };
 
