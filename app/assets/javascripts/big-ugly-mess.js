@@ -94,7 +94,6 @@ var mapProvider = {
   }
 }
 
-
 var renderLayer = function() {
   var query = "SELECT * FROM {{table_name}}";
 
