@@ -20,6 +20,7 @@ class CellsController < ApplicationController
       final << string
     }
     @result["list"] = final.join('<br>')
+    @result["era"] = params[:era]
     render json: @result
   end
 
