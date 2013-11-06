@@ -1,6 +1,3 @@
-// Leaflet example: http://leafletjs.com/examples/quick-start.html
-// see: http://developers.cartodb.com/tutorials/toggle_map_view.html
-
 $(document).ready(function() {
 
   var map = createNewMap()
