@@ -1,8 +1,3 @@
-var featureClicker = function(ev, latlng, pos, data) {
-  var grid = data["grid_code"]
-  getCartoDBData(grid);
-  makeAjaxCall(grid, era)
-}
 
 var makeAjaxCall = function(grid, era) {
   $.ajax({
