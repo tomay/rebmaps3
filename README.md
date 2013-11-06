@@ -37,7 +37,7 @@ bundle install
 3. Unzip and untar data in db/seed-data
 ```
 cd db/seed-data
-gzip rebmaps3_data.tar.gz
+gunzip rebmaps3_data.tar.gz
 tar xvf rebmaps3_data.tar
 
 4. Create and then migrate the database
