@@ -37,7 +37,7 @@ a.url { font-size: .8em; color:gray; }
   background: #ffffff;
 }
 
-.wax-legend .legend-title {
+.wax-legend #legend-title {
   text-align: left;
   margin-bottom: 8px;
   font-weight: bold;
@@ -72,6 +72,26 @@ a.url { font-size: .8em; color:gray; }
 .wax-legend a {
   color: #777;
   }
+
+.wax-legend #legend-one-box {
+  background:#FFFFCC;
+}
+
+.wax-legend #legend-two-box {
+  background:#A1DAB4;
+}
+
+.wax-legend #legend-three-box {
+  background:#41B6C4;
+}
+
+.wax-legend #legend-four-box {
+  background:#2C7FB8;
+}
+
+.wax-legend #legend-five-box {
+  background:#253494;
+}
 
 #overlay #modal #content #close {
   margin:0;
@@ -119,4 +139,6 @@ a.url { font-size: .8em; color:gray; }
   top:-7px;
   right:-7px;
 }
+
+
 
