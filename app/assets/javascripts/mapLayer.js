@@ -44,7 +44,8 @@ var createMapLayer = function(era, map) {
     tile_style: newMapLayer.tile_style,
     featureOut: newMapLayer.featureOut,
     featureOver: newMapLayer.featureOver,
-    featureClick: featureClicker
+    featureClick: newMapLayer.featureClicker,
+    era: newMapLayer.era
   })
 }
 
