@@ -25,6 +25,11 @@ MapLayer.prototype.featureOver = function() {
   this.map.setOptions({draggableCursor: 'pointer'});
 }
 
+MapLayer.prototype.featureClicker = function(ev, latlng, pos, data) {
+  var grid = data["grid_code"]
+  getCartoDBData(grid);
+  makeAjaxCall(grid, this.era)
+}
 
 var createMapLayer = function(era, map) {
 
