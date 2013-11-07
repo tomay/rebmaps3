@@ -23,7 +23,7 @@ body,html {
 .ui-widget-header { border: 1px solid #aaaaaa/*{borderColorHeader}*/; background: #CCCCFF/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 0/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/; color: #222222/*{fcHeader}*/; font-weight: bold; }
 .ui-widget-header a { color: #222222/*{fcHeader}*/; }
 
-#results { font-size: 1.2em;}
+#results-pane { font-size: 1.2em;}
 
 a.url { font-size: .8em; color:gray; }
 
