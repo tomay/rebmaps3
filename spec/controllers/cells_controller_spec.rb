@@ -13,7 +13,8 @@ describe CellsController do
   it "responds with expected data for current era" do
     @mine = {
       "size" => "1",
-      "list" => spp_currents.sciname
+      "list" => spp_currents.sciname,
+      "era" => "curr"
     }.to_json
     get :search, :id => spp_currents.currents.first.id, :era => "curr"
     expect(response.body).to eq(@mine)
@@ -22,7 +23,8 @@ describe CellsController do
   it "responds with expected data for a2100 era" do
     @mine = {
       "size" => "1",
-      "list" => spp_a2100s.sciname
+      "list" => spp_a2100s.sciname,
+      "era" => "a2100"
     }.to_json
     get :search, :id => spp_a2100s.a2100s.first.id, :era => "a2100"
     expect(response.body).to eq(@mine)
@@ -31,7 +33,8 @@ describe CellsController do
   it "responds with expected data for b2100 era" do
     @mine = {
       "size" => "1",
-      "list" => spp_b2100s.sciname
+      "list" => spp_b2100s.sciname,
+      "era" => "b2100"
     }.to_json
     get :search, :id => spp_b2100s.b2100s.first.id, :era => "b2100"
     expect(response.body).to eq(@mine)

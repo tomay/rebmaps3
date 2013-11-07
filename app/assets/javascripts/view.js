@@ -50,7 +50,18 @@ var View = {
       overflow: 'auto',
       position: [10, 180]
     })
+  },
+
+  updateResults: function(response) {
+    $('#results-pane').dialog("option","title","Found: " + response["size"] + " species in " + View.eraName(response["era"]));
+    $('#results-pane').dialog("open");
+    $("div#results-pane").html(response["list"]);
+  },
+
+  focusButton: function(button) {
+    $button = $( button )
+    $button.focus();
+    $button.closest('div').find('button.selected').removeClass('selected');
+    $button.addClass('selected');
   }
 }
-
-
