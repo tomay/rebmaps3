@@ -38,7 +38,7 @@ var googleMap = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
     });
-
+    // sets googleMap.map = map
     this.map = map
   },
 

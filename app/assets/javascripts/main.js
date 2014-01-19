@@ -6,5 +6,11 @@ $(document).ready(function() {
 
   $('.buttons button').click(Controller.switchEras)
 
+  // Load basic-modal dialog on click
+  $('#basic-modal .basic').click(function (e) {
+    $('#basic-modal-content').modal();
+    return false;
+  });
+
 }) // doc ready
 

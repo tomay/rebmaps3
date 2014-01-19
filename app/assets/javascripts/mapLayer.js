@@ -1,3 +1,4 @@
+// move this to controller.createMapLayer
 function MapLayer(era) {
   this.era = era;
   this.user_name = "rebioma";
@@ -6,6 +7,7 @@ function MapLayer(era) {
   this.tile_style = this.tilestyler(this.era);
 }
 
+// make this a view function
 MapLayer.prototype.tilestyler = function(era) {
   var tilestyle = "#richlemur {line-color:#FFFFFF; line-width:1; line-opacity:0.4; polygon-opacity:0.7;}"
   var labels = View.labeler(era)
