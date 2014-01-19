@@ -12,3 +12,41 @@
  *= require_tree .
  */
 
+.dialog-button-select {
+  position: absolute !important;
+  width: 320px;
+  height: 160px;
+  top: 5px;
+  left: 10px;
+  background-color: white;
+  box-shadow: -2px 2px 5px #555;
+  overflow: hidden;
+  opacity: 1;
+  z-index: 1000;
+}
+
+.dialog-button-select .header {
+  background-color: #c2c25b;
+  text-align: right;
+  padding: 2px;
+}
+
+.dialog-button-select .header:hover {
+  background-color: #a8a860;
+}
+
+.dialog-button-select .header a, .dialog-button-select .header a:visited {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.dialog-button-select .header a:hover {
+  color: #eee;
+}
+
+.dialog-select-content {
+  border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1;
+}
+
+.dialog-button-select ubutton { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1.2em; }
