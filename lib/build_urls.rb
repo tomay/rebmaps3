@@ -22,12 +22,13 @@ require 'wikipedia'
 spps = Spp.all; puts nil
 spps.each {|spp|
   # pageid
+  next if !spp.wikipedia_url.nil?
   page = Wikipedia.find(spp.sciname)
   spp.wikipedia_url = page.page["pageid"]
 
   # image url
   image_urls = page.image_urls.first
   spp.image_url = image_urls unless image_urls == "http://upload.wikimedia.org/wikipedia/commons/1/1b/Lemur_%28PSF%29.png"
-  
+
   spp.save
 }
