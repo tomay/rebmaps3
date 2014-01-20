@@ -37,16 +37,16 @@ var Controller = {
 
   createMapLayer: function(era, map) {
     if (typeof newMapLayer != 'undefined') { newMapLayer.setMap(null); }
-    var newMapLayer = new MapLayer(era,map)
+    var googleMapLayer = new MapLayer(era,map)
     newMapLayer = new CartoDBLayer({
       map: googleMap.map,
-      user_name: newMapLayer.user_name,
-      table_name: newMapLayer.table_name,
-      interactivity: newMapLayer.interactivity,
-      tile_style: newMapLayer.tile_style,
+      user_name: googleMapLayer.user_name,
+      table_name: googleMapLayer.table_name,
+      interactivity: googleMapLayer.interactivity,
+      tile_style: googleMapLayer.tile_style,
       featureOver: googleMap.setCursorToPointer,
       featureClick: Controller.featureClicker,
-      era: newMapLayer.era
+      era: googleMapLayer.era
     })
   }
 }
